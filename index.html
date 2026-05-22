@@ -5,300 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CHARLS是什么？一篇看懂国家级健康养老追踪调查</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            font-size: 16px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            background: #1a1a2e;
-            display: flex;
-            justify-content: center;
-            padding: 0;
-            min-height: 100vh;
+            background: #0f0f1a;
+            color: #333;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: 1080px;
-            background: linear-gradient(180deg, #FF6B6B 0%, #FF8E53 50%, #FFC837 100%);
-            padding: 0;
+            max-width: 480px;
             margin: 0 auto;
+            background: #fff;
+            position: relative;
         }
 
-        /* 封面 */
+        /* ===== 封面 ===== */
         .cover {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            background: linear-gradient(160deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+            padding: 3rem 2rem 2.5rem;
             text-align: center;
-            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 30%, #0f3460 100%);
-            padding: 2rem;
             position: relative;
+            overflow: hidden;
         }
-
-        .cover::before {
+        .cover::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
+            bottom: -40px;
+            left: -20px;
+            right: -20px;
+            height: 80px;
+            background: #fff;
+            border-radius: 50% 50% 0 0;
         }
-
-        .cover-content {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-        }
-
-        .cover-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cover-tag {
-            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
-            color: white;
-            padding: 0.5rem 1.2rem;
-            border-radius: 1.5rem;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-        }
-
-        .cover h1 {
-            font-size: 2rem;
-            color: white;
-            line-height: 1.4;
-            margin-bottom: 1rem;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-
-        .cover-subtitle {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 2rem;
-        }
-
-        .cover-source {
-            background: rgba(255,255,255,0.15);
-            padding: 1rem 1.5rem;
-            border-radius: 0.8rem;
-            color: white;
-            font-size: 0.85rem;
-            line-height: 1.6;
-        }
-
-        .cover-source strong {
-            color: #FFC837;
-        }
-
-        /* 内容页 */
-        .content-page {
-            min-height: 100vh;
-            padding: 1.5rem;
-            background: white;
-            position: relative;
-        }
-
-        .page-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 3px solid #FF6B6B;
-        }
-
-        .page-icon {
-            width: 3rem;
-            height: 3rem;
-            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
-            border-radius: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-right: 0.8rem;
-            flex-shrink: 0;
-        }
-
-        .page-title {
-            font-size: 1.5rem;
-            color: #1a1a2e;
-            font-weight: bold;
-        }
-
-        /* 什么是CHARLS */
-        .intro-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 1rem;
-            padding: 1.2rem;
+        .cover-logo {
+            width: 5rem;
+            height: auto;
             margin-bottom: 1.2rem;
-            color: white;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
         }
-
-        .intro-box h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .intro-box p {
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        /* 数据卡片 */
-        .data-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.8rem;
-            margin: 1.2rem 0;
-        }
-
-        .data-card {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            border-radius: 0.8rem;
-            padding: 1rem 0.5rem;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .data-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .data-card .number {
-            font-size: 1.8rem;
-            font-weight: bold;
+        .cover-tag {
+            display: inline-block;
             background: linear-gradient(135deg, #FF6B6B, #FF8E53);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: white;
+            padding: 0.35rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.2rem;
         }
-
-        .data-card .unit {
-            font-size: 0.8rem;
-            color: #667eea;
-            font-weight: bold;
+        .cover h1 {
+            font-size: 1.8rem;
+            color: white;
+            line-height: 1.3;
+            margin-bottom: 0.6rem;
+            font-weight: 800;
         }
-
-        .data-card .label {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 0.3rem;
-        }
-
-        /* 时间线 */
-        .timeline {
-            position: relative;
-            padding-left: 1.5rem;
-            margin: 1.2rem 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0.3rem;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, #FF6B6B, #FF8E53, #FFC837);
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 1rem;
-            padding-left: 1rem;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -1.2rem;
-            top: 0.3rem;
-            width: 12px;
-            height: 12px;
-            background: #FF6B6B;
-            border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 2px 8px rgba(255,107,107,0.5);
-        }
-
-        .timeline-year {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #FF6B6B;
-            margin-bottom: 0.2rem;
-        }
-
-        .timeline-content {
-            font-size: 0.9rem;
-            color: #333;
+        .cover-sub {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 1.5rem;
             line-height: 1.5;
         }
-
-        /* 成就卡片 */
-        .achievement-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.8rem;
-            margin: 1.2rem 0;
-        }
-
-        .achievement-card {
-            background: white;
+        .cover-info {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 0.8rem 1.5rem;
             border-radius: 0.8rem;
-            padding: 1rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border: 1px solid #e5e7eb;
+            color: white;
+            font-size: 0.8rem;
+            line-height: 1.6;
         }
+        .cover-info strong { color: #FFC837; }
 
-        .achievement-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+        /* ===== 通用Section ===== */
+        .section {
+            padding: 1.5rem 1.5rem 1.2rem;
         }
-
-        .achievement-number {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #FF6B6B;
+        .section + .section {
+            border-top: none;
         }
-
-        .achievement-label {
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 0.2rem;
-        }
-
-        /* 特点列表 */
-        .feature-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .feature-item {
+        .section-header {
             display: flex;
-            align-items: flex-start;
-            padding: 0.8rem;
-            background: #f8fafc;
-            border-radius: 0.6rem;
-            margin-bottom: 0.6rem;
+            align-items: center;
+            margin-bottom: 1rem;
         }
-
-        .feature-icon {
+        .section-icon {
             width: 2.2rem;
             height: 2.2rem;
             background: linear-gradient(135deg, #FF6B6B, #FF8E53);
@@ -306,623 +104,552 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            margin-right: 0.8rem;
+            font-size: 1.1rem;
+            margin-right: 0.6rem;
             flex-shrink: 0;
         }
-
-        .feature-text {
-            font-size: 0.9rem;
-            color: #333;
-            line-height: 1.5;
+        .section-title {
+            font-size: 1.15rem;
+            color: #1a1a2e;
+            font-weight: 700;
         }
 
-        /* 结尾页 */
-        .ending-page {
-            min-height: 100vh;
-            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .ending-page::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
-        }
-
-        .ending-content {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-        }
-
-        .ending-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .ending-title {
-            font-size: 1.8rem;
-            color: white;
-            margin-bottom: 1.5rem;
-        }
-
-        .ending-qr {
-            background: white;
-            padding: 1.2rem;
+        /* ===== 介绍卡片 ===== */
+        .intro-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 0.8rem;
-            margin: 1rem 0;
-        }
-
-        .ending-qr p {
-            font-size: 0.95rem;
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-
-        .ending-link {
-            font-size: 1rem;
-            color: #FF6B6B;
-            font-weight: bold;
-            margin-top: 0.5rem;
-            word-break: break-all;
-        }
-
-        .ending-footer {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.6);
-            margin-top: 2rem;
-        }
-
-        /* 分割线 */
-        .divider {
-            height: 2px;
-            background: linear-gradient(90deg, #FF6B6B, #FF8E53, #FFC837);
-            border-radius: 2px;
-            margin: 1.2rem 0;
-        }
-
-        /* 页码 */
-        .page-number {
-            position: absolute;
-            bottom: 1rem;
-            right: 1.2rem;
-            font-size: 0.75rem;
-            color: #999;
-        }
-
-        /* 引用框 */
-        .quote-box {
-            background: linear-gradient(135deg, #FFF9E6 0%, #FFF3CC 100%);
-            border-left: 4px solid #FFC837;
             padding: 1rem 1.2rem;
-            border-radius: 0 0.6rem 0.6rem 0;
-            margin: 1rem 0;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        .intro-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .intro-card p {
+            font-size: 0.85rem;
+            line-height: 1.65;
+            opacity: 0.95;
         }
 
-        .quote-box p {
-            font-size: 0.9rem;
-            color: #333;
-            line-height: 1.6;
-            font-style: italic;
-        }
-
-        /* 图标网格 */
-        .icon-grid {
+        /* ===== 数据三宫格 ===== */
+        .stat-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 0.6rem;
-            margin: 1rem 0;
+            margin-bottom: 1rem;
         }
-
-        .icon-item {
-            text-align: center;
-            padding: 0.8rem 0.3rem;
-            background: #f8fafc;
+        .stat-item {
+            background: #f7f8fc;
             border-radius: 0.6rem;
+            padding: 0.8rem 0.4rem;
+            text-align: center;
+        }
+        .stat-num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        .stat-unit {
+            font-size: 0.7rem;
+            color: #667eea;
+            font-weight: 700;
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 0.15rem;
         }
 
-        .icon-item .icon {
-            font-size: 1.8rem;
-            margin-bottom: 0.3rem;
+        /* ===== 引用框 ===== */
+        .quote {
+            background: linear-gradient(135deg, #FFF9E6, #FFF3CC);
+            border-left: 3px solid #FFC837;
+            padding: 0.7rem 0.9rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin-bottom: 1rem;
+            font-size: 0.82rem;
+            color: #555;
+            line-height: 1.6;
         }
 
-        .icon-item .text {
-            font-size: 0.75rem;
-            color: #666;
+        /* ===== 特点列表 ===== */
+        .feat-list { list-style: none; }
+        .feat-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.7rem;
+            background: #f7f8fc;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .feat-icon {
+            width: 1.8rem;
+            height: 1.8rem;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            border-radius: 0.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            margin-right: 0.6rem;
+            flex-shrink: 0;
+        }
+        .feat-text {
+            font-size: 0.82rem;
+            color: #444;
+            line-height: 1.55;
+            padding-top: 0.15rem;
+        }
+
+        /* ===== 时间线 ===== */
+        .timeline {
+            position: relative;
+            padding-left: 1.2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.25rem;
+            top: 0.4rem;
+            bottom: 0.4rem;
+            width: 2px;
+            background: linear-gradient(180deg, #FF6B6B, #FF8E53, #FFC837);
+            border-radius: 1px;
+        }
+        .tl-item {
+            position: relative;
+            padding-left: 0.8rem;
+            margin-bottom: 0.65rem;
+        }
+        .tl-item::before {
+            content: '';
+            position: absolute;
+            left: -1rem;
+            top: 0.35rem;
+            width: 8px;
+            height: 8px;
+            background: #FF6B6B;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px rgba(255,107,107,0.3);
+        }
+        .tl-year {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #FF6B6B;
+            line-height: 1.3;
+        }
+        .tl-desc {
+            font-size: 0.78rem;
+            color: #555;
             line-height: 1.4;
         }
 
-        /* 平板适配 */
+        /* ===== 成就2x2 ===== */
+        .ach-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+        .ach-card {
+            background: #f7f8fc;
+            border-radius: 0.6rem;
+            padding: 0.8rem;
+            text-align: center;
+            border: 1px solid #eef0f6;
+        }
+        .ach-emoji { font-size: 1.5rem; margin-bottom: 0.3rem; }
+        .ach-num {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #FF6B6B;
+            line-height: 1.2;
+        }
+        .ach-label {
+            font-size: 0.72rem;
+            color: #888;
+            margin-top: 0.15rem;
+        }
+
+        /* ===== 发表统计三列 ===== */
+        .pub-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .pub-item {
+            background: #f7f8fc;
+            border-radius: 0.5rem;
+            padding: 0.7rem 0.3rem;
+            text-align: center;
+        }
+        .pub-icon { font-size: 1.3rem; margin-bottom: 0.2rem; }
+        .pub-num {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #FF6B6B;
+        }
+        .pub-label {
+            font-size: 0.65rem;
+            color: #888;
+            margin-top: 0.1rem;
+        }
+
+        /* ===== 分割线 ===== */
+        .sep {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
+            margin: 0.3rem 0 1rem;
+        }
+
+        /* ===== 官网入口 ===== */
+        .link-card {
+            background: linear-gradient(135deg, #00B894, #00CEC9);
+            border-radius: 0.8rem;
+            padding: 1rem 1.2rem;
+            color: white;
+            margin-bottom: 0;
+        }
+        .link-card p {
+            font-size: 0.82rem;
+            line-height: 1.7;
+        }
+        .link-card a {
+            color: white;
+            text-decoration: underline;
+            word-break: break-all;
+        }
+        .link-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.4rem;
+        }
+        .link-label {
+            font-weight: 700;
+            min-width: 4.5rem;
+        }
+
+        /* ===== 结尾 ===== */
+        .ending {
+            background: linear-gradient(160deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+            padding: 2.5rem 1.5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .ending::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: -20px;
+            right: -20px;
+            height: 80px;
+            background: #fff;
+            border-radius: 0 0 50% 50%;
+        }
+        .ending-inner {
+            position: relative;
+            z-index: 1;
+        }
+        .ending-logo {
+            width: 3.5rem;
+            height: auto;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+        }
+        .ending h2 {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+        }
+        .ending-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            margin-bottom: 1.2rem;
+        }
+        .ending-card {
+            background: white;
+            border-radius: 0.6rem;
+            padding: 0.8rem 0.5rem;
+        }
+        .ending-card p {
+            font-size: 0.75rem;
+            color: #666;
+            margin-bottom: 0.2rem;
+        }
+        .ending-card .elink {
+            font-size: 0.78rem;
+            color: #FF6B6B;
+            font-weight: 700;
+            word-break: break-all;
+        }
+        .ending-foot {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.6;
+        }
+        .ending-foot img {
+            width: 1rem;
+            height: 1rem;
+            vertical-align: middle;
+            border-radius: 2px;
+        }
+
+        /* ===== 响应式 ===== */
         @media (min-width: 768px) {
-            html {
-                font-size: 18px;
-            }
-
-            .cover {
-                padding: 3rem;
-            }
-
-            .cover h1 {
-                font-size: 2.8rem;
-            }
-
-            .cover-subtitle {
-                font-size: 1.3rem;
-            }
-
-            .content-page {
-                padding: 2.5rem;
-            }
-
-            .page-title {
-                font-size: 1.8rem;
-            }
-
-            .data-card .number {
-                font-size: 2.2rem;
-            }
-
-            .achievement-number {
-                font-size: 2.2rem;
-            }
-
-            .timeline-year {
-                font-size: 1.1rem;
-            }
-
-            .timeline-content {
-                font-size: 1rem;
-            }
+            html { font-size: 17px; }
+            .container { max-width: 540px; }
+            .cover { padding: 4rem 3rem 3rem; }
+            .cover h1 { font-size: 2.2rem; }
+            .section { padding: 2rem 2rem 1.5rem; }
         }
 
-        /* 桌面端适配 */
         @media (min-width: 1024px) {
-            html {
-                font-size: 20px;
-            }
-
-            body {
-                padding: 20px;
-            }
-
-            .cover {
-                min-height: 1920px;
-                padding: 60px;
-            }
-
-            .cover-icon {
-                font-size: 6rem;
-            }
-
-            .cover h1 {
-                font-size: 3.6rem;
-            }
-
-            .cover-subtitle {
-                font-size: 1.6rem;
-            }
-
-            .cover-source {
-                font-size: 1rem;
-                padding: 1.2rem 2rem;
-            }
-
-            .content-page {
-                min-height: 1920px;
-                padding: 60px;
-            }
-
-            .page-icon {
-                width: 3.5rem;
-                height: 3.5rem;
-                font-size: 1.8rem;
-            }
-
-            .page-title {
-                font-size: 2.1rem;
-            }
-
-            .intro-box {
-                padding: 2rem;
-            }
-
-            .intro-box h3 {
-                font-size: 1.4rem;
-            }
-
-            .intro-box p {
-                font-size: 1.1rem;
-            }
-
-            .data-grid {
-                gap: 1.2rem;
-            }
-
-            .data-card {
-                padding: 1.5rem 1rem;
-            }
-
-            .data-card .number {
-                font-size: 2.4rem;
-            }
-
-            .data-card .label {
-                font-size: 1rem;
-            }
-
-            .achievement-grid {
-                gap: 1.2rem;
-            }
-
-            .achievement-card {
-                padding: 1.5rem;
-            }
-
-            .achievement-icon {
-                font-size: 2.5rem;
-            }
-
-            .achievement-number {
-                font-size: 2.6rem;
-            }
-
-            .achievement-label {
-                font-size: 1rem;
-            }
-
-            .feature-item {
-                padding: 1.2rem;
-            }
-
-            .feature-icon {
-                width: 2.8rem;
-                height: 2.8rem;
-                font-size: 1.3rem;
-            }
-
-            .feature-text {
-                font-size: 1.1rem;
-            }
-
-            .ending-page {
-                min-height: 1920px;
-                padding: 60px;
-            }
-
-            .ending-icon {
-                font-size: 5rem;
-            }
-
-            .ending-title {
-                font-size: 2.8rem;
-            }
-
-            .ending-qr {
-                padding: 1.8rem;
-            }
-
-            .ending-qr p {
-                font-size: 1.1rem;
-            }
-
-            .ending-link {
-                font-size: 1.2rem;
-            }
-
-            .ending-footer {
-                font-size: 1rem;
-            }
-
-            .timeline-item {
-                margin-bottom: 1.5rem;
-            }
-
-            .timeline-year {
-                font-size: 1.3rem;
-            }
-
-            .timeline-content {
-                font-size: 1.1rem;
-            }
-
-            .quote-box {
-                padding: 1.2rem 1.5rem;
-            }
-
-            .quote-box p {
-                font-size: 1.1rem;
-            }
-
-            .icon-grid {
-                gap: 1rem;
-            }
-
-            .icon-item {
-                padding: 1.2rem 0.8rem;
-            }
-
-            .icon-item .icon {
-                font-size: 2.2rem;
-            }
-
-            .icon-item .text {
-                font-size: 0.9rem;
-            }
+            html { font-size: 18px; }
+            .container { max-width: 580px; }
+            body { background: #0f0f1a; }
         }
 
-        /* 超小屏幕适配 */
         @media (max-width: 375px) {
-            html {
-                font-size: 14px;
-            }
-
-            .cover h1 {
-                font-size: 1.6rem;
-            }
-
-            .data-grid {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-
-            .achievement-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .icon-grid {
-                grid-template-columns: 1fr;
-            }
+            html { font-size: 14px; }
+            .cover { padding: 2rem 1.2rem 2rem; }
+            .section { padding: 1.2rem 1rem 1rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
+
         <!-- 封面 -->
         <div class="cover">
-            <div class="cover-content">
-                <div class="cover-icon"><img src="charls-logo.png" alt="CHARLS Logo" style="height: 100%; width: auto; max-height: 6rem;"></div>
-                <div class="cover-tag">🔬 学术科普</div>
-                <h1>CHARLS是什么？</h1>
-                <p class="cover-subtitle">一篇看懂国家级健康养老追踪调查</p>
-                <div class="cover-source">
-                    <strong>中国健康与养老追踪调查</strong><br>
-                    CHARLS · China Health and Retirement Longitudinal Study
-                </div>
+            <img class="cover-logo" src="charls-logo.png" alt="CHARLS Logo">
+            <div class="cover-tag">🔬 学术科普</div>
+            <h1>CHARLS是什么？</h1>
+            <p class="cover-sub">一篇看懂国家级健康养老追踪调查</p>
+            <div class="cover-info">
+                <strong>中国健康与养老追踪调查</strong><br>
+                CHARLS · China Health and Retirement Longitudinal Study
             </div>
         </div>
 
-        <!-- 第1页：什么是CHARLS -->
-        <div class="content-page">
-            <div class="page-header">
-                <div class="page-icon">📖</div>
-                <div class="page-title">什么是CHARLS？</div>
+        <!-- 什么是CHARLS -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">📖</div>
+                <div class="section-title">什么是CHARLS？</div>
             </div>
-
-            <div class="intro-box">
+            <div class="intro-card">
                 <h3>中国健康与养老追踪调查</h3>
                 <p>CHARLS是由<strong>武汉大学</strong>和<strong>北京大学</strong>共同主持的长期追踪大型跨学科研究项目</p>
             </div>
-
-            <div class="data-grid">
-                <div class="data-card">
-                    <div class="number">150</div>
-                    <div class="unit">个</div>
-                    <div class="label">区县覆盖</div>
+            <div class="stat-row">
+                <div class="stat-item">
+                    <div class="stat-num">150</div>
+                    <div class="stat-unit">个</div>
+                    <div class="stat-label">区县覆盖</div>
                 </div>
-                <div class="data-card">
-                    <div class="number">450</div>
-                    <div class="unit">个</div>
-                    <div class="label">村居单位</div>
+                <div class="stat-item">
+                    <div class="stat-num">450</div>
+                    <div class="stat-unit">个</div>
+                    <div class="stat-label">村居单位</div>
                 </div>
-                <div class="data-card">
-                    <div class="number">18000</div>
-                    <div class="unit">+</div>
-                    <div class="label">受访者</div>
+                <div class="stat-item">
+                    <div class="stat-num">18000</div>
+                    <div class="stat-unit">+</div>
+                    <div class="stat-label">受访者</div>
                 </div>
             </div>
-
-            <div class="quote-box">
-                <p>🔍 CHARLS受访者遍布全国城乡各地，对中国<strong>中老年群体</strong>有很好的代表性</p>
+            <div class="quote">
+                🔍 CHARLS受访者遍布全国城乡各地，对中国<strong>中老年群体</strong>有很好的代表性
             </div>
-
-            <ul class="feature-list">
-                <li class="feature-item">
-                    <div class="feature-icon">📊</div>
-                    <div class="feature-text">提供<strong>高质量微观数据</strong>，推动人口老龄化与健康问题的跨学科研究</div>
+            <ul class="feat-list">
+                <li class="feat-item">
+                    <div class="feat-icon">📊</div>
+                    <div class="feat-text">提供<strong>高质量微观数据</strong>，推动人口老龄化与健康问题的跨学科研究</div>
                 </li>
-                <li class="feature-item">
-                    <div class="feature-icon">📋</div>
-                    <div class="feature-text">为我国<strong>社会保障政策</strong>的制定、修正和完善提供科学的数据基础</div>
+                <li class="feat-item">
+                    <div class="feat-icon">📋</div>
+                    <div class="feat-text">为我国<strong>社会保障政策</strong>的制定、修正和完善提供科学的数据基础</div>
                 </li>
             </ul>
-
-            <div class="page-number">1 / 4</div>
         </div>
 
-        <!-- 第2页：发展历程 -->
-        <div class="content-page">
-            <div class="page-header">
-                <div class="page-icon">📅</div>
-                <div class="page-title">发展历程</div>
+        <!-- 发展历程 -->
+        <div class="section" style="background: #fafbfe;">
+            <div class="section-header">
+                <div class="section-icon">📅</div>
+                <div class="section-title">发展历程</div>
             </div>
-
             <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-year">2025年</div>
-                    <div class="timeline-content">🔄 全国样本第七轮调查</div>
+                <div class="tl-item">
+                    <div class="tl-year">2025年</div>
+                    <div class="tl-desc">🔄 全国样本第七轮调查</div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2024年</div>
-                    <div class="timeline-content">🏢 正式移师武汉大学，与北大共同执行</div>
+                <div class="tl-item">
+                    <div class="tl-year">2024年</div>
+                    <div class="tl-desc">🏢 正式移师武汉大学，与北大共同执行</div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2020年</div>
-                    <div class="timeline-content">📍 全国样本第五轮调查</div>
+                <div class="tl-item">
+                    <div class="tl-year">2020年</div>
+                    <div class="tl-desc">📍 全国样本第五轮调查</div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2018年</div>
-                    <div class="timeline-content">📍 全国样本第四轮调查</div>
+                <div class="tl-item">
+                    <div class="tl-year">2018年</div>
+                    <div class="tl-desc">📍 全国样本第四轮调查</div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2016年</div>
-                    <div class="timeline-content">🏛️ 共和国初期基层经济历史调查</div>
+                <div class="tl-item">
+                    <div class="tl-year">2016年</div>
+                    <div class="tl-desc">🏛️ 共和国初期基层经济历史调查</div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2015年</div>
-                    <div class="timeline-content">📍 全国样本第三轮常规调查</div>
+                <div class="tl-item">
+                    <div class="tl-year">2015年</div>
+                    <div class="tl-desc">📍 全国样本第三轮常规调查</div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2014年</div>
-                    <div class="timeline-content">📍 中国中老年生命历程调查</div>
+                <div class="tl-item">
+                    <div class="tl-year">2014年</div>
+                    <div class="tl-desc">📍 中国中老年生命历程调查</div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2013年</div>
-                    <div class="timeline-content">📍 全国样本第二轮调查</div>
+                <div class="tl-item">
+                    <div class="tl-year">2013年</div>
+                    <div class="tl-desc">📍 全国样本第二轮调查</div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2011年</div>
-                    <div class="timeline-content">📍 全国样本第一轮调查</div>
+                <div class="tl-item">
+                    <div class="tl-year">2011年</div>
+                    <div class="tl-desc">📍 全国样本第一轮调查</div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2008年</div>
-                    <div class="timeline-content">🌱 甘肃和浙江预调查启动</div>
+                <div class="tl-item">
+                    <div class="tl-year">2008年</div>
+                    <div class="tl-desc">🌱 甘肃和浙江预调查启动</div>
                 </div>
             </div>
-
-            <div class="page-number">2 / 4</div>
         </div>
 
-        <!-- 第3页：影响力 -->
-        <div class="content-page">
-            <div class="page-header">
-                <div class="page-icon">🏆</div>
-                <div class="page-title">数据影响力</div>
+        <!-- 数据影响力 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">🏆</div>
+                <div class="section-title">数据影响力</div>
             </div>
-
-            <div class="achievement-grid">
-                <div class="achievement-card">
-                    <div class="achievement-icon">👥</div>
-                    <div class="achievement-number">17万+</div>
-                    <div class="achievement-label">数据用户数</div>
+            <div class="ach-grid">
+                <div class="ach-card">
+                    <div class="ach-emoji">👥</div>
+                    <div class="ach-num">17万+</div>
+                    <div class="ach-label">数据用户数</div>
                 </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon">🌍</div>
-                    <div class="achievement-number">96%</div>
-                    <div class="achievement-label">国内用户占比</div>
+                <div class="ach-card">
+                    <div class="ach-emoji">🌍</div>
+                    <div class="ach-num">96%</div>
+                    <div class="ach-label">国内用户占比</div>
                 </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon">📚</div>
-                    <div class="achievement-number">9800+</div>
-                    <div class="achievement-label">学术论文发表</div>
+                <div class="ach-card">
+                    <div class="ach-emoji">📚</div>
+                    <div class="ach-num">9800+</div>
+                    <div class="ach-label">学术论文发表</div>
                 </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon">🌐</div>
-                    <div class="achievement-number">7000+</div>
-                    <div class="achievement-label">海外用户数</div>
-                </div>
-            </div>
-
-            <div class="divider"></div>
-
-            <h3 style="font-size: 1.2rem; color: #1a1a2e; margin-bottom: 1rem;">📊 发表统计</h3>
-            <div class="icon-grid">
-                <div class="icon-item">
-                    <div class="icon">📖</div>
-                    <div class="text">中文期刊论文<br><strong style="color:#FF6B6B">2069篇</strong></div>
-                </div>
-                <div class="icon-item">
-                    <div class="icon">🇬🇧</div>
-                    <div class="text">英文期刊论文<br><strong style="color:#FF6B6B">5882篇</strong></div>
-                </div>
-                <div class="icon-item">
-                    <div class="icon">📖</div>
-                    <div class="text">其他成果<br><strong style="color:#FF6B6B">1800+篇</strong></div>
+                <div class="ach-card">
+                    <div class="ach-emoji">🌐</div>
+                    <div class="ach-num">7000+</div>
+                    <div class="ach-label">海外用户数</div>
                 </div>
             </div>
-
-            <div class="quote-box">
-                <p>📡 数据已公布：2008、2011、2012、2013、2014、2015、2018、2020年共8轮数据免费向学术界开放</p>
+            <div class="sep"></div>
+            <div style="font-size: 0.9rem; color: #1a1a2e; font-weight: 700; margin-bottom: 0.6rem;">📊 发表统计</div>
+            <div class="pub-grid">
+                <div class="pub-item">
+                    <div class="pub-icon">📖</div>
+                    <div class="pub-num">2069</div>
+                    <div class="pub-label">中文期刊论文</div>
+                </div>
+                <div class="pub-item">
+                    <div class="pub-icon">🇬🇧</div>
+                    <div class="pub-num">5882</div>
+                    <div class="pub-label">英文期刊论文</div>
+                </div>
+                <div class="pub-item">
+                    <div class="pub-icon">📝</div>
+                    <div class="pub-num">1800+</div>
+                    <div class="pub-label">其他成果</div>
+                </div>
             </div>
-
-            <div class="page-number">3 / 4</div>
+            <div class="quote">
+                📡 数据已公布：2008、2011、2012、2013、2014、2015、2018、2020年共8轮数据免费向学术界开放
+            </div>
         </div>
 
-        <!-- 第4页：如何获取 -->
-        <div class="content-page">
-            <div class="page-header">
-                <div class="page-icon">💡</div>
-                <div class="page-title">核心价值</div>
+        <!-- 核心价值 + 官网入口 -->
+        <div class="section" style="background: #fafbfe;">
+            <div class="section-header">
+                <div class="section-icon">💡</div>
+                <div class="section-title">核心价值</div>
             </div>
-
-            <ul class="feature-list">
-                <li class="feature-item">
-                    <div class="feature-icon">🎯</div>
-                    <div class="feature-text">推动<strong>人口老龄化</strong>与健康问题的跨学科研究</div>
+            <ul class="feat-list">
+                <li class="feat-item">
+                    <div class="feat-icon">🎯</div>
+                    <div class="feat-text">推动<strong>人口老龄化</strong>与健康问题的跨学科研究</div>
                 </li>
-                <li class="feature-item">
-                    <div class="feature-icon">📈</div>
-                    <div class="feature-text">为<strong>社会保障政策</strong>制定提供科学数据支撑</div>
+                <li class="feat-item">
+                    <div class="feat-icon">📈</div>
+                    <div class="feat-text">为<strong>社会保障政策</strong>制定提供科学数据支撑</div>
                 </li>
-                <li class="feature-item">
-                    <div class="feature-icon">🔬</div>
-                    <div class="feature-text">覆盖全国的<strong>高质量微观数据</strong>，代表性极强</div>
+                <li class="feat-item">
+                    <div class="feat-icon">🔬</div>
+                    <div class="feat-text">覆盖全国的<strong>高质量微观数据</strong>，代表性极强</div>
                 </li>
-                <li class="feature-item">
-                    <div class="feature-icon">📦</div>
-                    <div class="feature-text"><strong>免费向学术界开放</strong>，促进科研合作</div>
+                <li class="feat-item">
+                    <div class="feat-icon">📦</div>
+                    <div class="feat-text"><strong>免费向学术界开放</strong>，促进科研合作</div>
                 </li>
             </ul>
-
-            <div class="divider"></div>
-
-            <h3 style="font-size: 1.2rem; color: #1a1a2e; margin-bottom: 1rem;">🔗 官网入口</h3>
-            <div class="intro-box" style="background: linear-gradient(135deg, #00B894, #00CEC9);">
-                <p style="font-size: 0.9rem; text-align: left; line-height: 1.8;">
-                    🌐 <strong>主站</strong><br>
-                    <a href="http://charls.pku.edu.cn" target="_blank" style="color: white; text-decoration: underline; word-break: break-all;">charls.pku.edu.cn</a><br><br>
-                    📊 <strong>数据专区</strong><br>
-                    <a href="https://charls.charlsdata.com/pages/Data/" target="_blank" style="color: white; text-decoration: underline; word-break: break-all;">charls.charlsdata.com/pages/Data/</a><br><br>
-                    📧 咨询邮箱：charls@whu.edu.cn
-                </p>
+            <div class="sep"></div>
+            <div style="font-size: 0.9rem; color: #1a1a2e; font-weight: 700; margin-bottom: 0.6rem;">🔗 官网入口</div>
+            <div class="link-card">
+                <div class="link-row">
+                    <span class="link-label">🌐 主站</span>
+                    <a href="http://charls.pku.edu.cn" target="_blank">charls.pku.edu.cn</a>
+                </div>
+                <div class="link-row">
+                    <span class="link-label">📊 数据专区</span>
+                    <a href="https://charls.charlsdata.com/pages/Data/" target="_blank">charls.charlsdata.com/pages/Data/</a>
+                </div>
+                <div class="link-row" style="margin-bottom: 0;">
+                    <span class="link-label">📧 咨询邮箱</span>
+                    <span>charls@whu.edu.cn</span>
+                </div>
             </div>
-
-            <div class="page-number">4 / 4</div>
         </div>
 
-        <!-- 结尾页 -->
-        <div class="ending-page">
-            <div class="ending-content">
-                <div class="ending-icon">💙</div>
-                <h2 class="ending-title">关注CHARLS</h2>
-                
-                <div class="ending-qr">
-                    <p>📱 微信号：CHARLS_WHU_PKU</p>
-                    <div class="ending-link">🔗 charls.pku.edu.cn</div>
+        <!-- 结尾 -->
+        <div class="ending">
+            <div class="ending-inner">
+                <img class="ending-logo" src="charls-logo.png" alt="CHARLS">
+                <h2>关注CHARLS</h2>
+                <div class="ending-cards">
+                    <div class="ending-card">
+                        <p>📱 微信号</p>
+                        <div class="elink">CHARLS_WHU_PKU</div>
+                    </div>
+                    <div class="ending-card">
+                        <p>💬 数据用户论坛</p>
+                        <div class="elink">forum.charlsdata.com</div>
+                    </div>
                 </div>
-
-                <div class="ending-qr" style="background: #f0f0f0;">
-                    <p>💬 数据用户论坛</p>
-                    <div class="ending-link">forum.charlsdata.com</div>
-                </div>
-
-                <p class="ending-footer">
-                    感谢阅读 <img src="charls-logo.png" alt="CHARLS" style="width: 1.2rem; height: 1.2rem; vertical-align: middle; border-radius: 2px;"><br>
+                <p class="ending-foot">
+                    感谢阅读 <img src="charls-logo.png" alt="CHARLS"><br>
                     收藏 + 关注，获取更多学术干货
                 </p>
             </div>
         </div>
+
     </div>
 </body>
 </html>
